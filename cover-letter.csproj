@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>cover_letter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="itext7" Version="8.0.5" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
+    <PackageReference Include="Mscc.GenerativeAI" Version="1.6.3" />
+  </ItemGroup>
+
+</Project>

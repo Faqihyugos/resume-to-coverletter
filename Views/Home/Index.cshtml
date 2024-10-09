@@ -1,0 +1,70 @@
+﻿@using cover_letter.Models
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="mx-auto" style="max-width: 600px;">
+    <!-- File Upload Card -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Upload Your Resume</h2>
+
+            <!-- Privacy Alert -->
+            <div class="alert alert-info d-flex align-items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="me-2"
+                    style="width: 24px; height: 24px;" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Your files are deleted immediately after processing. Your privacy is our top priority.
+                    <a href="https://github.com/hafizhlf/resume-to-coverletter/blob/main/coverletter/views.py#L64-L68"
+                        class="link-primary" aria-label="Privacy policy details">Learn more</a></span>
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+            <!-- File Upload Form -->
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                @Html.AntiForgeryToken()
+
+                <!-- Resume File Upload -->
+                <div class="mb-3">
+                    <label for="pdf" class="form-label">Upload your resume (PDF)</label>
+                    <input type="file" name="resume" accept=".pdf" class="form-control" id="pdf"
+                        aria-label="Resume PDF file" required />
+                </div>
+
+                <!-- Job Position Image Upload -->
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Upload the job position image</label>
+                    <input type="file" name="open_position" accept="image/*" class="form-control" id="photo"
+                        aria-label="Position image" required />
+                </div>
+
+                <!-- Language Selection -->
+                <div class="mb-3">
+                    <label for="language" class="form-label">Select Language</label>
+                    <select class="form-select" id="language" name="language">
+                        <option value="" selected disabled>-- Please select a language --</option>
+                        <option>Bahasa Indonesia</option>
+                        <option>English</option>
+                    </select>
+                </div>
+
+                <!-- Generate Button -->
+                <button type="submit" class="btn btn-primary w-100">Generate Cover Letter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Generated Cover Letter Display -->
+    @if (!string.IsNullOrEmpty(Model.CoverLetter))
+    {
+        <div class="card shadow-sm mb-4 mt-5">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Your Generated Cover Letter</h3>
+                <div>@Html.Raw(Model.CoverLetter.ToHtml())</div> <!-- Render markdown as HTML -->
+            </div>
+        </div>
+    }
+</section>
